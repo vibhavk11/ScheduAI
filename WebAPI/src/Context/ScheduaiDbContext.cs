@@ -7,6 +7,7 @@ namespace WebAPI.Context;
 public class ScheduaiDbContext(DbContextOptions<ScheduaiDbContext> options) : DbContext(options)
 {
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<ScheduaiTask> ScheduaiTasks { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

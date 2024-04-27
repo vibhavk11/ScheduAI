@@ -1,0 +1,11 @@
+mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {
+  createScheduaiTask(input: $input) {
+    scheduaiTask {
+      id
+      title
+      description
+      dueDate
+      priority
+    }
+  }
+}
