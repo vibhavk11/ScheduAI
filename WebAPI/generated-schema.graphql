@@ -1,0 +1,20 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Mutation {
+  test(input: TestInput!): TestPayload!
+}
+
+type Query {
+  test: String!
+}
+
+type TestPayload {
+  string: String
+}
+
+input TestInput {
+  input: String!
+}
