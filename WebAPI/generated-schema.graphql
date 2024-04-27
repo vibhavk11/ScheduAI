@@ -8,13 +8,45 @@ type Mutation {
 }
 
 type Query {
+  userById(input: CreateUserInput!): User!
   test: String!
+}
+
+type ScheduaiTask {
+  id: Int!
+  userId: String!
+  title: String!
+  description: String!
+  isComplete: Boolean!
+  startDate: DateTime
+  endDate: DateTime
+  dueDate: DateTime
+  priority: Int!
+  estimatedTimeInHours: Int!
+  aiRecommendation: String
+  user: User!
 }
 
 type TestPayload {
   string: String
 }
 
+type User {
+  id: String!
+  username: String!
+  email: String!
+  tasks: [ScheduaiTask!]!
+}
+
+input CreateUserInput {
+  id: String!
+  username: String!
+  email: String!
+}
+
 input TestInput {
   input: String!
 }
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
