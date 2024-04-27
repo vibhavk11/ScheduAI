@@ -38,21 +38,29 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "GraphQL.Server.Transports.AspNetCore": {
+            "HotChocolate.AspNetCore": {
               "target": "Package",
-              "version": "[5.2.2, )"
+              "version": "[13.9.0, )"
             },
-            "GraphQL.Server.Transports.AspNetCore.SystemTextJson": {
+            "HotChocolate.AspNetCore.CommandLine": {
               "target": "Package",
-              "version": "[5.2.2, )"
+              "version": "[13.9.0, )"
             },
-            "GraphQL.Server.Ui.Playground": {
+            "HotChocolate.Data": {
               "target": "Package",
-              "version": "[7.7.1, )"
+              "version": "[13.9.0, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.1, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[2.18.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

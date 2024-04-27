@@ -1,20 +1,45 @@
+using HotChocolate.AspNetCore;
+using HotChocolate.Types;
+using WebAPI.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder
+    .Services
+    .AddGraphQLServer()
+    .AllowIntrospection(builder.Environment.IsDevelopment())
+    // .AddHttpRequestInterceptor<AuthHttpRequestInterceptor>()
+    .AddQueryType(q => q.Name("Query"))
+    .AddQueries()
+    .AddMutationType(e => e.Name("Mutation"))
+    .AddMutations()
+    .AddMutationConventions()
+    .InitializeOnStartup()
+    .BindRuntimeType<uint, IntType>()
+    .UseDefaultPipeline();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin", builder =>
-        builder.WithOrigins("http://localhost:5173") // Allow your frontend URL
-               .AllowAnyMethod()
-               .AllowAnyHeader()
-               .AllowCredentials());
-});
+builder
+    .Services
+    .AddCors(options =>
+    {
+        options.AddPolicy(
+            "AllowSpecificOrigin",
+            builder =>
+                builder
+                    .WithOrigins("http://localhost:5173") // Allow your frontend URL
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials()
+        );
+    });
 
 var app = builder.Build();
 
@@ -25,31 +50,48 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 var summaries = new[]
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    "Freezing",
+    "Bracing",
+    "Chilly",
+    "Cool",
+    "Mild",
+    "Warm",
+    "Balmy",
+    "Hot",
+    "Sweltering",
+    "Scorching"
 };
 
 app.UseCors("AllowSpecificOrigin"); // Apply the CORS policy globally
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+app.MapGet(
+        "/weatherforecast",
+        () =>
+        {
+            var forecast = Enumerable
+                .Range(1, 5)
+                .Select(
+                    index =>
+                        new WeatherForecast(
+                            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                            Random.Shared.Next(-20, 55),
+                            summaries[Random.Shared.Next(summaries.Length)]
+                        )
+                )
+                .ToArray();
+            return forecast;
+        }
+    )
+    .WithName("GetWeatherForecast")
+    .WithOpenApi();
+
+app.MapGraphQL().WithOptions(new GraphQLServerOptions { Tool = { Enable = true } });
 
 app.Run();
 
