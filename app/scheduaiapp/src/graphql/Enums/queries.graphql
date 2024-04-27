@@ -1,0 +1,6 @@
+query GetPriorities {
+  priorities {
+    key
+    value
+  }
+}

@@ -3,13 +3,24 @@
   mutation: Mutation
 }
 
+type CreateScheduaiTaskPayload {
+  scheduaiTask: ScheduaiTask
+}
+
+type KeyValuePairOfPriorityAndInt32 {
+  key: Priority!
+  value: Int!
+}
+
 type Mutation {
   test(input: TestInput!): TestPayload!
+  createScheduaiTask(input: CreateScheduaiTaskInput!): CreateScheduaiTaskPayload!
 }
 
 type Query {
   userById(input: CreateUserInput!): User!
   test: String!
+  priorities: [KeyValuePairOfPriorityAndInt32!]!
 }
 
 type ScheduaiTask {
@@ -21,7 +32,7 @@ type ScheduaiTask {
   startDate: DateTime
   endDate: DateTime
   dueDate: DateTime
-  priority: Int!
+  priority: Priority!
   estimatedTimeInHours: Int!
   aiRecommendation: String
   user: User!
@@ -38,6 +49,15 @@ type User {
   tasks: [ScheduaiTask!]!
 }
 
+input CreateScheduaiTaskInput {
+  userId: String!
+  title: String!
+  description: String!
+  estimatedTimeInHours: Int!
+  priority: Priority!
+  dueDate: DateTime!
+}
+
 input CreateUserInput {
   id: String!
   username: String!
@@ -46,6 +66,13 @@ input CreateUserInput {
 
 input TestInput {
   input: String!
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
 }
 
 "The `DateTime` scalar represents an ISO-8601 compliant date time type."

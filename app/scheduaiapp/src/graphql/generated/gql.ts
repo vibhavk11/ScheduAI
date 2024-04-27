@@ -13,6 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "query GetPriorities {\n  priorities {\n    key\n    value\n  }\n}": types.GetPrioritiesDocument,
+    "mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueDate\n      priority\n    }\n  }\n}": types.CreateScheduaiTaskDocument,
     "query TestQuery {\n  test\n}": types.TestQueryDocument,
     "query GetUserById($input: CreateUserInput!) {\n  userById(input: $input) {\n    id\n    username\n    email\n  }\n}": types.GetUserByIdDocument,
 };
@@ -31,6 +33,14 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "query GetPriorities {\n  priorities {\n    key\n    value\n  }\n}"): (typeof documents)["query GetPriorities {\n  priorities {\n    key\n    value\n  }\n}"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueDate\n      priority\n    }\n  }\n}"): (typeof documents)["mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueDate\n      priority\n    }\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
