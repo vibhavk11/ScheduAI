@@ -4,6 +4,7 @@ using HotChocolate.Types;
 using Microsoft.EntityFrameworkCore;
 using WebAPI.Context;
 using WebAPI.Extensions;
+using WebAPI.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,8 @@ builder
     .AddDbContext<ScheduaiDbContext>(
         options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
     );
+
+builder.Services.AddDataServices();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -58,8 +61,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-// app.UseHttpsRedirection();
 
 var summaries = new[]
 {

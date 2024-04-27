@@ -1,0 +1,7 @@
+query GetUserById($input: CreateUserInput!) {
+  userById(input: $input) {
+    id
+    username
+    email
+  }
+}
