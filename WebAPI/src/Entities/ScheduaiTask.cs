@@ -11,8 +11,9 @@ public class ScheduaiTask
     public DateTime? StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public DateTime? DueDate { get; set; }
-    public int Priority { get; set; } = 0;
+    public Priority Priority { get; set; } = Priority.Low;
     public int EstimatedTimeInHours { get; set; } = 0;
     public string? AIRecommendation { get; set; }
+
     public User User { get; set; } = null!;
 }
