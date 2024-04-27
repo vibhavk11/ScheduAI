@@ -1,0 +1,14 @@
+Tasks:
+Id: 1
+Title: Homework 1
+Description: Create a new program
+DueDate: 5/1/2024
+EstimatedTime: 
+Priority: 0
+
+
+User Info:
+id: 10
+school start time: 8:00
+school end time: 3:00
+hours to sleep: 8
