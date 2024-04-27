@@ -1,24 +1,39 @@
-import { Button, Container, Stack } from '@mui/material'
+import { Box, Button, Container, Stack } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import LoginButton from '../../login'
-import { useQuery } from '@apollo/client'
-import { TestQueryDocument } from '../../graphql/generated/graphql'
+import { useAuth0 } from '@auth0/auth0-react'
+import { useEffect } from 'react'
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0()
 
-  const { data, loading, error } = useQuery(TestQueryDocument)
+  // Effect for handling the automatic login redirect
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated) {
+      loginWithRedirect() // Automatically trigger login if not authenticated
+    }
+  }, [isLoading, isAuthenticated, loginWithRedirect])
+
+  // Log user information
+  useEffect(() => {
+    console.log('user', user)
+  }, [user])
+
+  if (isLoading) {
+    return <div>Loading...</div> // Show a loading message while the authentication is still processing
+  }
 
   return (
-    <Stack direction={'column'}>
-      <Container>
-        <h1>{data?.test}</h1>
-        <p>Click the button below to log in</p>
-        <LoginButton />
-        <Button onClick={() => navigate('/loggedout')}>Logout</Button>
-      </Container>
-    </Stack>
+    <div>
+      {isAuthenticated && user ? (
+        <Box>
+          <h1>Welcome {user.name}</h1>
+          <Button onClick={() => navigate('/loggedout')}>Logout</Button>
+        </Box>
+      ) : (
+        <div>Please wait... you are being redirected to the login page.</div>
+      )}
+    </div>
   )
 }
-
 export default HomePage

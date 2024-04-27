@@ -1,5 +1,8 @@
+using System.Reflection;
 using HotChocolate.AspNetCore;
 using HotChocolate.Types;
+using Microsoft.EntityFrameworkCore;
+using WebAPI.Context;
 using WebAPI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +23,12 @@ builder
     .InitializeOnStartup()
     .BindRuntimeType<uint, IntType>()
     .UseDefaultPipeline();
+
+builder
+    .Services
+    .AddDbContext<ScheduaiDbContext>(
+        options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
