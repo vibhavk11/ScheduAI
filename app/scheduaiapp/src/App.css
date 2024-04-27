@@ -5,6 +5,17 @@
   text-align: center;
 }
 
+.bar {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
