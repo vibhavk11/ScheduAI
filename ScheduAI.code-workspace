@@ -18,7 +18,8 @@
     "editor.formatOnSave": true,
     "editor.formatOnPaste": true,
     "[csharp]": {
-      "editor.defaultFormatter": "csharpier.csharpier-vscode"
+      "editor.defaultFormatter": "csharpier.csharpier-vscode",
+      "editor.formatOnSave": true
     }
   }
 }

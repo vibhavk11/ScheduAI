@@ -91,6 +91,18 @@ app.MapGet(
     .WithName("GetWeatherForecast")
     .WithOpenApi();
 
+args.ToList().ForEach(x => Console.WriteLine(x));
+
+if (Array.Exists(args, x => x.Contains("schema")))
+{
+    Console.WriteLine("Generating GraphQL Schema...");
+
+    await app.RunWithGraphQLCommandsAsync(args);
+    return;
+}
+
+Console.WriteLine("Starting GraphQL server...");
+
 app.MapGraphQL().WithOptions(new GraphQLServerOptions { Tool = { Enable = true } });
 
 app.Run();
