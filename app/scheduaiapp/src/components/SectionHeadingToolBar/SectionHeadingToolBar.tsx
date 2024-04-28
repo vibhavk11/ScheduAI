@@ -5,6 +5,7 @@ import {
   CircularProgress,
   Divider,
   IconButton,
+  Stack,
   Typography,
 } from '@mui/material'
 
@@ -35,13 +36,15 @@ const SectionHeadingToolBar: React.FC<SectionHeadingToolBarProps> = ({
   onRefreshButtonClicked = () => {},
 }) => {
   return (
-    <Box
+    <Stack
+      direction="row"
       sx={{
         boxShadow: 0,
         paddingX: 0,
         paddingY: 0.8,
         width: '100%',
         display: 'flex',
+        justifyContent: 'space-between',
       }}
     >
       {typeof title === 'string' || title instanceof String ? (
@@ -52,7 +55,6 @@ const SectionHeadingToolBar: React.FC<SectionHeadingToolBarProps> = ({
           component="div"
           color="text.primary"
           sx={{
-            flexGrow: 1,
             display: { xs: 'none', sm: 'block' },
           }}
         >
@@ -91,7 +93,7 @@ const SectionHeadingToolBar: React.FC<SectionHeadingToolBarProps> = ({
           </IconButton>
         </div>
       )}
-    </Box>
+    </Stack>
   )
 }
 

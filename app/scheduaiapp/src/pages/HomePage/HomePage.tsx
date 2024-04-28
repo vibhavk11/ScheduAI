@@ -20,6 +20,7 @@ const HomePage = () => {
   const navigate = useNavigate()
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0()
   const [showDrawer, setShowDrawer] = useState(false)
+  const [refetchBool, setRefetchBool] = useState(false)
 
   const [time, setTime] = useState(new Date())
 
@@ -151,13 +152,21 @@ const HomePage = () => {
                 </Stack>
               }
             />
-            <TaskBox width={'100%'} height={600} date={new Date()} />
+            <TaskBox
+              width={'100%'}
+              height={600}
+              date={new Date()}
+              refetchBoolean={refetchBool}
+            />
           </Stack>
 
           <Drawer anchor="right" open={showDrawer} onClose={handleCloseDrawer}>
             <CreateTaskPanel
               handleSave={() => {
                 setShowDrawer(false)
+              }}
+              refetch={() => {
+                setRefetchBool(!refetchBool)
               }}
             />
           </Drawer>

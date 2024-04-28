@@ -4,8 +4,10 @@ query ScheduaiTasksById($input: String!) {
     title
     description
     priority
+    estimatedTimeInHours
     dueTime
     startTime
     endTime
+    aiRecommendation
   }
 }

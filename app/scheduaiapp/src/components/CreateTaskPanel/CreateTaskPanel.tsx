@@ -32,13 +32,18 @@ import { callSnackBar } from '../CallSnackBar/CallSnackBar'
 
 interface CreateTaskPanelProps {
   handleSave: () => void
+  refetch: () => void
 }
 
-const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({ handleSave }) => {
+const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
+  handleSave,
+  refetch,
+}) => {
   const [selectedDate, setSelectedDate] = useState(dayjs())
   const [selectedPriority, setSelectedPriority] = useState<Priority | null>(
     null,
   )
+  const [startDate, setStartDate] = useState(dayjs())
   const hoverBoxRef = useRef<HTMLDivElement | null>(null)
   const [hoverBoxWidth, setHoverBoxWidth] = useState<number | null>(null)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -63,11 +68,13 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({ handleSave }) => {
           description: taskDescription ?? '',
           estimatedTimeInHours: estimatedHours ?? 0,
           dueTime: selectedDate.hour() + selectedDate.minute() / 60,
+          startTime: startDate.hour() + startDate.minute() / 60,
           priority: selectedPriority ?? Priority.Low,
         },
       },
     }).then(() => {
       callSnackBar('Task Created Successfully', 'success')
+      refetch()
     })
   }
 
@@ -184,7 +191,7 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({ handleSave }) => {
               width={'40%'}
               sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
             >
-              Due Date
+              Due By
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -192,6 +199,26 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({ handleSave }) => {
                 onChange={newValue => {
                   if (newValue) {
                     setSelectedDate(newValue)
+                  }
+                }}
+              />
+            </LocalizationProvider>
+          </Stack>
+
+          <Stack direction="row" spacing={2} alignItems={'center'}>
+            <Typography
+              variant="body1"
+              width={'40%'}
+              sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
+            >
+              Start Time
+            </Typography>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <TimePicker
+                value={selectedDate}
+                onChange={newValue => {
+                  if (newValue) {
+                    setStartDate(newValue)
                   }
                 }}
               />

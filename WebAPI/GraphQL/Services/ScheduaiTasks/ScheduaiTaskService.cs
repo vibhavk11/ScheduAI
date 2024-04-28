@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using Mscc.GenerativeAI;
 using WebAPI.Attributes;
 using WebAPI.Context;
 using WebAPI.Entities;
 using WebAPI.GraphQL.Schema.ScheduaiTasks.Inputs;
-using Mscc.GenerativeAI;
 
 [DataService]
 public class ScheduaiTaskService(ScheduaiDbContext context)
@@ -17,11 +17,12 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
         {
             UserId = input.UserId,
             Title = input.Title,
+            CreateDate = DateTime.UtcNow,
             Description = input.Description,
             EstimatedTimeInHours = input.EstimatedTimeInHours,
             DueTime = input.DueTime,
             EndTime = input.DueTime + input.EstimatedTimeInHours,
-            StartTime = DateTime.UtcNow.Hour,
+            StartTime = input.StartTime,
         };
 
         _context.ScheduaiTasks.Add(scheduaiTask);
@@ -45,7 +46,13 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
     public async Task<ICollection<ScheduaiTask>> GetScheduaiTasksByUserIdAsync(string userId)
     {
         return await _context
-            .ScheduaiTasks.Where(st => st.UserId == userId && st.StartTime.HasValue)
+            .ScheduaiTasks
+            .Where(
+                st =>
+                    st.UserId == userId
+                    && st.StartTime.HasValue
+                    && st.CreateDate.Date == DateTime.UtcNow.Date
+            )
             .ToListAsync();
     }
 }

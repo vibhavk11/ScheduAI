@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\WebAPI.csproj": {}
+    "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\WebAPI.csproj": {
+    "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\broke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\obj\\",
+        "projectPath": "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/WebAPI.csproj",
+        "packagesPath": "/Users/vibhav/.nuget/packages/",
+        "outputPath": "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\broke\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/vibhav/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -124,7 +122,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
