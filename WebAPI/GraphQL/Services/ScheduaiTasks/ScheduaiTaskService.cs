@@ -36,9 +36,46 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
         var googleAI = new GoogleAI(apiKey: "AIzaSyA1PbjBnaPlXojF-hESNZGO7awb8WnjgmQ");
         var model = googleAI.GenerativeModel(model: Model.GeminiPro);
         var response = model.GenerateContent(prompt).Result;
-
         scheduaiTask.AIRecommendation = response.Text;
-        await _context.SaveChangesAsync();
+
+        var dueDate = scheduaiTask.DueTime;
+        var timeToComplete = scheduaiTask.EstimatedTimeInHours;
+        DateTime utcTime = DateTime.UtcNow;
+        TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+        DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, cstZone);
+        string g = cstTime.ToString("HH:mm"); // for 24hr format
+        
+        var x = dueDate % 1;
+        int seconds = (int)(60 * x);
+        int intTime = (int)dueDate;
+        string dueTime = intTime + ":" + seconds;
+        prompt =
+            dueTime
+            + " this is the due date of a task in military time "
+            + " it will take "
+            + timeToComplete
+            + " hours to complete "
+            + " the current time is "
+            + g
+            + " when should i start and end this task, just give me the end and start timee nothing else";
+        response = model.GenerateContent(prompt).Result;
+
+        string start = string.Empty;
+        string end = string.Empty;
+
+        string endSubString = response.Text.Substring(response.Text.Length / 2 + 2);
+        string startSubString = response.Text.Substring(0, response.Text.Length / 2 + 1);
+
+        for (int i = 0; i < startSubString.Length; i++)
+        {
+            if (Char.IsDigit(startSubString[i]))
+                start += startSubString[i];
+        }
+        for (int i = 0; i < endSubString.Length; i++)
+        {
+            if (Char.IsDigit(endSubString[i]))
+                end += endSubString[i];
+        }
 
         return scheduaiTask;
     }
