@@ -1,4 +1,11 @@
-import { Box, Container, Divider, Stack, Typography } from '@mui/material'
+import {
+  Box,
+  Checkbox,
+  Container,
+  Divider,
+  Stack,
+  Typography,
+} from '@mui/material'
 import { ScheduaiTaskItem } from '../TaskBox/TaskBox'
 import SingleLineTextBox, {
   EditableItemContainer,
@@ -7,16 +14,34 @@ import { LocalizationProvider, TimePicker } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import TagChip from '../TagChip/TagChip'
 import dayjs from 'dayjs'
+import { useMutation } from '@apollo/client'
+import { MarkTaskAsCompletedDocument } from '../../graphql/generated/graphql'
 
 interface ViewTaskPanelProps {
   task: ScheduaiTaskItem
+  refetch: () => void
 }
 
-const ViewTaskPanel: React.FC<ViewTaskPanelProps> = ({ task }) => {
+const ViewTaskPanel: React.FC<ViewTaskPanelProps> = ({ task, refetch }) => {
   const getHtmlString = (html: string) => {
     // strip ```html\n from the beginning and ``` from the end and return
 
     return html.replace(/```html\n/, '').replace(/```/, '')
+  }
+
+  const [markTaskAsCompleted] = useMutation(MarkTaskAsCompletedDocument)
+
+  const handleCompleteTask = (isCompleted: boolean) => {
+    markTaskAsCompleted({
+      variables: {
+        input: {
+          taskId: task.id,
+          status: isCompleted,
+        },
+      },
+    }).then(() => {
+      refetch()
+    })
   }
 
   return (
@@ -149,6 +174,22 @@ const ViewTaskPanel: React.FC<ViewTaskPanelProps> = ({ task }) => {
                 <TagChip colorIndex={3} name={task.priority ?? ''} />
               </Box>
             </Stack>
+          </Stack>
+
+          <Stack direction="row" spacing={2} alignItems={'center'}>
+            <Typography
+              variant="body1"
+              width={'40%'}
+              sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
+            >
+              Completed
+            </Typography>
+            <Checkbox
+              checked={task.isCompleted}
+              onClick={() => {
+                handleCompleteTask(!task.isCompleted)
+              }}
+            />
           </Stack>
           <Divider />
 

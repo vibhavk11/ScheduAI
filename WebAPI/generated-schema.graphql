@@ -12,9 +12,14 @@ type KeyValuePairOfPriorityAndInt32 {
   value: Int!
 }
 
+type MarkTaskAsCompletedPayload {
+  boolean: Boolean
+}
+
 type Mutation {
   test(input: TestInput!): TestPayload!
   createScheduaiTask(input: CreateScheduaiTaskInput!): CreateScheduaiTaskPayload!
+  markTaskAsCompleted(input: MarkTaskAsCompletedInput!): MarkTaskAsCompletedPayload!
 }
 
 type Query {
@@ -58,13 +63,18 @@ input CreateScheduaiTaskInput {
   estimatedTimeInHours: Int!
   priority: Priority!
   dueTime: Decimal!
-  startTime: Decimal!
+  startTime: Decimal
 }
 
 input CreateUserInput {
   id: String!
   username: String!
   email: String!
+}
+
+input MarkTaskAsCompletedInput {
+  taskId: Int!
+  status: Boolean!
 }
 
 input TestInput {

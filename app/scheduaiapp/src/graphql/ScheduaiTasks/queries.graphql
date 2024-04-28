@@ -9,5 +9,6 @@ query ScheduaiTasksById($input: String!) {
     startTime
     endTime
     aiRecommendation
+    isComplete
   }
 }

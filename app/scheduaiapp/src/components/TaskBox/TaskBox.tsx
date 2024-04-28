@@ -25,6 +25,7 @@ export interface ScheduaiTaskItem {
   startTime: number
   endTime: number
   aiRecommendation: string
+  isCompleted: boolean
 }
 
 const TaskBox: React.FC<TaskBoxProps> = ({
@@ -76,7 +77,7 @@ const TaskBox: React.FC<TaskBoxProps> = ({
     data?.scheduaiTasksById?.map((task, index) => {
       const taskWithAdditionalProps = {
         uuid: uuidv4(),
-        index: index,
+        index: index - 1,
         id: task.id,
         title: task.title,
         description: task.description,
@@ -86,11 +87,19 @@ const TaskBox: React.FC<TaskBoxProps> = ({
         startTime: task.startTime,
         endTime: task.endTime,
         aiRecommendation: task.aiRecommendation ?? '',
+        isCompleted: task.isComplete,
       }
 
       setScheduaiTasks(prev => [...prev, taskWithAdditionalProps])
     })
   }, [data])
+
+  useEffect(() => {
+    const task = scheduaiTasks.find(t => t.id === selectedTask?.id)
+    if (task) {
+      setSelectedTask(task)
+    }
+  }, [scheduaiTasks])
 
   // check if date is today
   useEffect(() => {
@@ -180,9 +189,9 @@ const TaskBox: React.FC<TaskBoxProps> = ({
               height: '10%', // Adjust these values based on your task data
               // Add other styles as needed
               borderRadius: '8px', // This adds rounded corners
-              backgroundColor: '#C0C0C0', // This sets the fill color
+              backgroundColor: task.isCompleted ? '#32CD32' : '#C0C0C0', // This sets the fill color
               '&:hover': {
-                backgroundColor: 'darkgray', // This changes the fill color on hover
+                backgroundColor: task.isCompleted ? '#006400' : 'darkgray', // This changes the fill color on hover
               },
             }}
             onClick={() => {
@@ -196,7 +205,13 @@ const TaskBox: React.FC<TaskBoxProps> = ({
       </Grid>
 
       <Drawer anchor="right" open={showDrawer} onClose={handleCloseDrawer}>
-        <ViewTaskPanel task={selectedTask ?? ({} as ScheduaiTaskItem)} />
+        <ViewTaskPanel
+          task={selectedTask ?? ({} as ScheduaiTaskItem)}
+          refetch={() => {
+            console.log('REFETCHING')
+            refetch()
+          }}
+        />
       </Drawer>
     </Box>
   )

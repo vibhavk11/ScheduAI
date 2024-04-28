@@ -9,3 +9,9 @@ mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {
     }
   }
 }
+
+mutation MarkTaskAsCompleted($input: MarkTaskAsCompletedInput!) {
+  markTaskAsCompleted(input: $input) {
+    boolean
+  }
+}

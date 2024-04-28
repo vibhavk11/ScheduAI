@@ -12,7 +12,7 @@ import SingleLineTextBox, {
   EditableItemContainer,
 } from '../SingleLineTextBox/SingleLineTextBox'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import dayjs from 'dayjs'
+import dayjs, { Dayjs } from 'dayjs'
 import { useEffect, useRef, useState } from 'react'
 import {
   DatePicker,
@@ -43,7 +43,7 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
   const [selectedPriority, setSelectedPriority] = useState<Priority | null>(
     null,
   )
-  const [startDate, setStartDate] = useState(dayjs())
+  const [startDate, setStartDate] = useState<Dayjs | null>(null)
   const hoverBoxRef = useRef<HTMLDivElement | null>(null)
   const [hoverBoxWidth, setHoverBoxWidth] = useState<number | null>(null)
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -67,8 +67,9 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
           userId: user?.sub ?? '',
           description: taskDescription ?? '',
           estimatedTimeInHours: estimatedHours ?? 0,
-          dueTime: selectedDate.hour() + selectedDate.minute() / 60,
-          startTime: startDate.hour() + startDate.minute() / 60,
+          dueTime: selectedDate.hour() + selectedDate.minute() / 60
+            ,
+          startTime: startDate ? (startDate.hour() + startDate.minute() / 60) : null,
           priority: selectedPriority ?? Priority.Low,
         },
       },
@@ -191,7 +192,7 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
               width={'40%'}
               sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
             >
-              Due By
+              Due By 
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -211,11 +212,11 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
               width={'40%'}
               sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
             >
-              Start Time
+              Start Time (if left blank, AI will predict it for you)
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
-                value={selectedDate}
+                value={startDate}
                 onChange={newValue => {
                   if (newValue) {
                     setStartDate(newValue)

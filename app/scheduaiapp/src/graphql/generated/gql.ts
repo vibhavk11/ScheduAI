@@ -14,8 +14,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  */
 const documents = {
     "query GetPriorities {\n  priorities {\n    key\n    value\n  }\n}": types.GetPrioritiesDocument,
-    "mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueTime\n      priority\n    }\n  }\n}": types.CreateScheduaiTaskDocument,
-    "query ScheduaiTasksById($input: String!) {\n  scheduaiTasksById(id: $input) {\n    id\n    title\n    description\n    priority\n    estimatedTimeInHours\n    dueTime\n    startTime\n    endTime\n    aiRecommendation\n  }\n}": types.ScheduaiTasksByIdDocument,
+    "mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueTime\n      priority\n    }\n  }\n}\n\nmutation MarkTaskAsCompleted($input: MarkTaskAsCompletedInput!) {\n  markTaskAsCompleted(input: $input) {\n    boolean\n  }\n}": types.CreateScheduaiTaskDocument,
+    "query ScheduaiTasksById($input: String!) {\n  scheduaiTasksById(id: $input) {\n    id\n    title\n    description\n    priority\n    estimatedTimeInHours\n    dueTime\n    startTime\n    endTime\n    aiRecommendation\n    isComplete\n  }\n}": types.ScheduaiTasksByIdDocument,
     "query TestQuery {\n  test\n}": types.TestQueryDocument,
     "query GetUserById($input: CreateUserInput!) {\n  userById(input: $input) {\n    id\n    username\n    email\n  }\n}": types.GetUserByIdDocument,
 };
@@ -41,11 +41,11 @@ export function graphql(source: "query GetPriorities {\n  priorities {\n    key\
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueTime\n      priority\n    }\n  }\n}"): (typeof documents)["mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueTime\n      priority\n    }\n  }\n}"];
+export function graphql(source: "mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueTime\n      priority\n    }\n  }\n}\n\nmutation MarkTaskAsCompleted($input: MarkTaskAsCompletedInput!) {\n  markTaskAsCompleted(input: $input) {\n    boolean\n  }\n}"): (typeof documents)["mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {\n  createScheduaiTask(input: $input) {\n    scheduaiTask {\n      id\n      title\n      description\n      dueTime\n      priority\n    }\n  }\n}\n\nmutation MarkTaskAsCompleted($input: MarkTaskAsCompletedInput!) {\n  markTaskAsCompleted(input: $input) {\n    boolean\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ScheduaiTasksById($input: String!) {\n  scheduaiTasksById(id: $input) {\n    id\n    title\n    description\n    priority\n    estimatedTimeInHours\n    dueTime\n    startTime\n    endTime\n    aiRecommendation\n  }\n}"): (typeof documents)["query ScheduaiTasksById($input: String!) {\n  scheduaiTasksById(id: $input) {\n    id\n    title\n    description\n    priority\n    estimatedTimeInHours\n    dueTime\n    startTime\n    endTime\n    aiRecommendation\n  }\n}"];
+export function graphql(source: "query ScheduaiTasksById($input: String!) {\n  scheduaiTasksById(id: $input) {\n    id\n    title\n    description\n    priority\n    estimatedTimeInHours\n    dueTime\n    startTime\n    endTime\n    aiRecommendation\n    isComplete\n  }\n}"): (typeof documents)["query ScheduaiTasksById($input: String!) {\n  scheduaiTasksById(id: $input) {\n    id\n    title\n    description\n    priority\n    estimatedTimeInHours\n    dueTime\n    startTime\n    endTime\n    aiRecommendation\n    isComplete\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
