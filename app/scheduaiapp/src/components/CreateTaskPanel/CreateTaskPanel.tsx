@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   MenuItem,
   MenuList,
@@ -57,7 +58,7 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
 
   const { user } = useAuth0()
 
-  const [createTask] = useMutation(CreateScheduaiTaskDocument)
+  const [createTask, { loading }] = useMutation(CreateScheduaiTaskDocument)
 
   const handleCreateTask = async () => {
     await createTask({
@@ -67,13 +68,15 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
           userId: user?.sub ?? '',
           description: taskDescription ?? '',
           estimatedTimeInHours: estimatedHours ?? 0,
-          dueTime: selectedDate.hour() + selectedDate.minute() / 60
-            ,
-          startTime: startDate ? (startDate.hour() + startDate.minute() / 60) : null,
+          dueTime: selectedDate.hour() + selectedDate.minute() / 60,
+          startTime: startDate
+            ? startDate.hour() + startDate.minute() / 60
+            : null,
           priority: selectedPriority ?? Priority.Low,
         },
       },
     }).then(() => {
+      handleSave()
       callSnackBar('Task Created Successfully', 'success')
       refetch()
     })
@@ -192,7 +195,7 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
               width={'40%'}
               sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
             >
-              Due By 
+              Due By
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <TimePicker
@@ -279,8 +282,10 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({
             variant="contained"
             onClick={() => {
               handleCreateTask()
-              handleSave()
             }}
+            startIcon={
+              loading ? <CircularProgress size={14} color="inherit" /> : null
+            }
           >
             SAVE
           </Button>
