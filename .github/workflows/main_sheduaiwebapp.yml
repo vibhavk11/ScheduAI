@@ -37,7 +37,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: release.zip
+          path: app/scheduaiapp/release.zip # Make sure the path matches where the zip is created
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,6 +50,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: node-app
+          path: ./ # This will download to the current working directory
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -64,4 +65,4 @@ jobs:
         with:
           app-name: 'SheduaiWebApp'
           slot-name: 'Production'
-          package: app/scheduaiapp/release.zip
+          package: release.zip # Now correctly referencing the zip in the current directory
