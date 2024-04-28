@@ -8,9 +8,9 @@ public class ScheduaiTask
     public string Title { get; set; } = "";
     public string Description { get; set; } = "";
     public bool IsComplete { get; set; } = false;
-    public DateTime? StartDate { get; set; }
-    public DateTime? EndDate { get; set; }
-    public DateTime? DueDate { get; set; }
+    public decimal? StartTime { get; set; }
+    public decimal? EndTime { get; set; }
+    public decimal? DueTime { get; set; }
     public Priority Priority { get; set; } = Priority.Low;
     public int EstimatedTimeInHours { get; set; } = 0;
     public string? AIRecommendation { get; set; }

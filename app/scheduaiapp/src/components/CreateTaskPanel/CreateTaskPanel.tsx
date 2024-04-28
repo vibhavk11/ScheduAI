@@ -14,7 +14,11 @@ import SingleLineTextBox, {
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import dayjs from 'dayjs'
 import { useEffect, useRef, useState } from 'react'
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
+import {
+  DatePicker,
+  LocalizationProvider,
+  TimePicker,
+} from '@mui/x-date-pickers'
 import {
   CreateScheduaiTaskDocument,
   GetPrioritiesDocument,
@@ -58,7 +62,7 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({ handleSave }) => {
           userId: user?.sub ?? '',
           description: taskDescription ?? '',
           estimatedTimeInHours: estimatedHours ?? 0,
-          dueDate: selectedDate.toDate().toISOString(),
+          dueTime: selectedDate.hour() + selectedDate.minute() / 60,
           priority: selectedPriority ?? Priority.Low,
         },
       },
@@ -183,11 +187,11 @@ const CreateTaskPanel: React.FC<CreateTaskPanelProps> = ({ handleSave }) => {
               Due Date
             </Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
+              <TimePicker
                 value={selectedDate}
-                onChange={newDate => {
-                  if (newDate) {
-                    setSelectedDate(newDate)
+                onChange={newValue => {
+                  if (newValue) {
+                    setSelectedDate(newValue)
                   }
                 }}
               />

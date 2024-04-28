@@ -4,7 +4,7 @@ mutation CreateScheduaiTask($input: CreateScheduaiTaskInput!) {
       id
       title
       description
-      dueDate
+      dueTime
       priority
     }
   }

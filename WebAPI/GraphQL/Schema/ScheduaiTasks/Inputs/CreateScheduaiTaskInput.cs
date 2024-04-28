@@ -9,5 +9,5 @@ public class CreateScheduaiTaskInput
     public string Description { get; set; } = "";
     public int EstimatedTimeInHours { get; set; } = 0;
     public Priority Priority { get; set; } = Priority.Low;
-    public DateTime DueDate { get; set; } = DateTime.Now;
+    public decimal DueTime { get; set; } = 0;
 }

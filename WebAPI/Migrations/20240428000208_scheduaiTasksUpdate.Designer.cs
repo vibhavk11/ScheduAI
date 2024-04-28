@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebAPI.Context;
@@ -11,9 +12,11 @@ using WebAPI.Context;
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(ScheduaiDbContext))]
-    partial class ScheduaiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240428000208_scheduaiTasksUpdate")]
+    partial class scheduaiTasksUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,11 +40,11 @@ namespace WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal?>("DueTime")
-                        .HasColumnType("numeric");
+                    b.Property<int?>("DueTime")
+                        .HasColumnType("integer");
 
-                    b.Property<decimal?>("EndTime")
-                        .HasColumnType("numeric");
+                    b.Property<int?>("EndTime")
+                        .HasColumnType("integer");
 
                     b.Property<int>("EstimatedTimeInHours")
                         .HasColumnType("integer");
@@ -52,8 +55,8 @@ namespace WebAPI.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("integer");
 
-                    b.Property<decimal?>("StartTime")
-                        .HasColumnType("numeric");
+                    b.Property<int?>("StartTime")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
