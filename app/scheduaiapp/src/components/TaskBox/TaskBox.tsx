@@ -71,6 +71,7 @@ const TaskBox: React.FC<TaskBoxProps> = ({
 
   useEffect(() => {
     console.log('DATA', data)
+    setScheduaiTasks([])
 
     data?.scheduaiTasksById?.map((task, index) => {
       const taskWithAdditionalProps = {

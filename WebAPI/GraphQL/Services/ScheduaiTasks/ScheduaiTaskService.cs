@@ -31,7 +31,7 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
         var prompt =
             "give me advice on how to "
             + taskDescription
-            + " keep the response under 250 characters";
+            + " keep the response under 250 characters. Format the response as basic html.";
 
         var googleAI = new GoogleAI(apiKey: "AIzaSyA1PbjBnaPlXojF-hESNZGO7awb8WnjgmQ");
         var model = googleAI.GenerativeModel(model: Model.GeminiPro);

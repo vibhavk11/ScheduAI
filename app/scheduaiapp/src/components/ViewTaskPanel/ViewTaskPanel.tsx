@@ -1,4 +1,4 @@
-import { Box, Container, Stack, Typography } from '@mui/material'
+import { Box, Container, Divider, Stack, Typography } from '@mui/material'
 import { ScheduaiTaskItem } from '../TaskBox/TaskBox'
 import SingleLineTextBox, {
   EditableItemContainer,
@@ -13,6 +13,12 @@ interface ViewTaskPanelProps {
 }
 
 const ViewTaskPanel: React.FC<ViewTaskPanelProps> = ({ task }) => {
+  const getHtmlString = (html: string) => {
+    // strip ```html\n from the beginning and ``` from the end and return
+
+    return html.replace(/```html\n/, '').replace(/```/, '')
+  }
+
   return (
     <div>
       <Container
@@ -144,33 +150,23 @@ const ViewTaskPanel: React.FC<ViewTaskPanelProps> = ({ task }) => {
               </Box>
             </Stack>
           </Stack>
+          <Divider />
 
-          <Stack direction="row" spacing={2} alignItems={'center'}>
+          <Stack direction="column" spacing={2} alignItems={'center'}>
             <Typography
-              variant="body1"
-              width={'40%'}
+              variant="h2"
+              width={'100%'}
               sx={{ color: 'rgba(0, 0, 0, 0.6)' }}
             >
               AI Recommendation
             </Typography>
             {/* use the getPriorities query to create a picker that consists of tagchips for each priority */}
 
-            <Box
-              width="100%"
-              sx={{
-                display: 'flex', // Flex container
-                flexWrap: 'nowrap', // Prevent wrapping
-                overflowX: 'hidden', // Horizontal scroll
-                overflowY: 'hidden', // Prevent positioner from overflowing
+            <div
+              dangerouslySetInnerHTML={{
+                __html: getHtmlString(task.aiRecommendation),
               }}
-            >
-              <SingleLineTextBox
-                hintText={'Empty'}
-                value={task.aiRecommendation ?? ''}
-                textAlign={'left'}
-                enabled={false}
-              />
-            </Box>
+            />
           </Stack>
         </Stack>
       </Container>
