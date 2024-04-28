@@ -1711,6 +1711,22 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "Mscc.GenerativeAI/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Json": "8.0.3"
+        },
+        "compile": {
+          "lib/net8.0/Mscc.GenerativeAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Mscc.GenerativeAI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "NetTopologySuite/2.5.0": {
         "type": "package",
         "dependencies": {
@@ -2388,7 +2404,7 @@
           }
         }
       },
-      "System.Text.Json/8.0.0": {
+      "System.Text.Json/8.0.3": {
         "type": "package",
         "dependencies": {
           "System.Text.Encodings.Web": "8.0.0"
@@ -5018,6 +5034,30 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "Mscc.GenerativeAI/1.4.0": {
+      "sha512": "KnqiIvx+KUg/T/vrXZpsFdJOO+Vz5kqgz8IjxtjgDOadpF/aLczdiF6gkijij/xbK17hk7IJELZN2Z9/FKWprQ==",
+      "type": "package",
+      "path": "mscc.generativeai/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "MsccGenerativeAi-icon-nuget.png",
+        "README.md",
+        "lib/net472/Mscc.GenerativeAI.dll",
+        "lib/net472/Mscc.GenerativeAI.xml",
+        "lib/net6.0/Mscc.GenerativeAI.dll",
+        "lib/net6.0/Mscc.GenerativeAI.xml",
+        "lib/net7.0/Mscc.GenerativeAI.dll",
+        "lib/net7.0/Mscc.GenerativeAI.xml",
+        "lib/net8.0/Mscc.GenerativeAI.dll",
+        "lib/net8.0/Mscc.GenerativeAI.xml",
+        "lib/netstandard2.0/Mscc.GenerativeAI.dll",
+        "lib/netstandard2.0/Mscc.GenerativeAI.xml",
+        "mscc.generativeai.1.4.0.nupkg.sha512",
+        "mscc.generativeai.nuspec"
+      ]
+    },
     "NetTopologySuite/2.5.0": {
       "sha512": "5/+2O2ADomEdUn09mlSigACdqvAf0m/pVPGtIPEPQWnyrVykYY0NlfXLIdkMgi41kvH9kNrPqYaFBTZtHYH7Xw==",
       "type": "package",
@@ -6034,10 +6074,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Text.Json/8.0.0": {
-      "sha512": "OdrZO2WjkiEG6ajEFRABTRCi/wuXQPxeV6g8xvUJqdxMvvuCCEk86zPla8UiIQJz3durtUEbNyY/3lIhS0yZvQ==",
+    "System.Text.Json/8.0.3": {
+      "sha512": "hpagS9joOwv6efWfrMmV9MjQXpiXZH72PgN067Ysfr6AWMSD1/1hEcvh/U5mUpPLezEWsOJSuVrmqDIVD958iA==",
       "type": "package",
-      "path": "system.text.json/8.0.0",
+      "path": "system.text.json/8.0.3",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6102,7 +6142,7 @@
         "lib/net8.0/System.Text.Json.xml",
         "lib/netstandard2.0/System.Text.Json.dll",
         "lib/netstandard2.0/System.Text.Json.xml",
-        "system.text.json.8.0.0.nupkg.sha512",
+        "system.text.json.8.0.3.nupkg.sha512",
         "system.text.json.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -6199,10 +6239,12 @@
       "HotChocolate.AspNetCore.CommandLine >= 13.9.0",
       "HotChocolate.Data >= 13.9.0",
       "Microsoft.AspNetCore.OpenApi >= 8.0.1",
+      "Microsoft.EntityFrameworkCore >= 8.0.4",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.4",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.4",
       "Microsoft.Extensions.DependencyInjection >= 8.0.0",
       "Microsoft.Identity.Web >= 2.18.1",
+      "Mscc.GenerativeAI >= 1.4.0",
       "Npgsql >= 8.0.2",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.2",
       "Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite >= 8.0.2",
@@ -6211,24 +6253,26 @@
     ]
   },
   "packageFolders": {
-    "/Users/vibhav/.nuget/packages/": {}
+    "C:\\Users\\broke\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/WebAPI.csproj",
-      "packagesPath": "/Users/vibhav/.nuget/packages/",
-      "outputPath": "/Users/vibhav/Documents/Hackathon/ScheduAI/WebAPI/obj/",
+      "projectPath": "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\broke\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\broke\\OneDrive\\Desktop\\HackAthon\\ScheduAI\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/vibhav/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\broke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -6263,6 +6307,10 @@
             "target": "Package",
             "version": "[8.0.1, )"
           },
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[8.0.4, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
@@ -6282,6 +6330,10 @@
           "Microsoft.Identity.Web": {
             "target": "Package",
             "version": "[2.18.1, )"
+          },
+          "Mscc.GenerativeAI": {
+            "target": "Package",
+            "version": "[1.4.0, )"
           },
           "Npgsql": {
             "target": "Package",
@@ -6323,7 +6375,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
