@@ -25,8 +25,6 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
             StartTime = input.StartTime,
         };
 
-        _context.ScheduaiTasks.Add(scheduaiTask);
-        await _context.SaveChangesAsync();
         string taskDescription = scheduaiTask.Description;
         var prompt =
             "give me advice on how to "
@@ -44,7 +42,7 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
         TimeZoneInfo cstZone = TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
         DateTime cstTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, cstZone);
         string g = cstTime.ToString("HH:mm"); // for 24hr format
-        
+
         var x = dueDate % 1;
         int seconds = (int)(60 * x);
         int intTime = (int)dueDate;
@@ -76,6 +74,28 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
             if (Char.IsDigit(endSubString[i]))
                 end += endSubString[i];
         }
+        if (start.Length == 3)
+        {
+            start = start.Insert(1, ".");
+        }
+        if (end.Length == 3)
+        {
+            end = end.Insert(1, ".");
+        }
+        if (start.Length == 4)
+        {
+            start = start.Insert(2, ".");
+        }
+        if (end.Length == 4)
+        {
+            end = end.Insert(2, ".");
+        }
+        decimal endDeciaml = Decimal.Parse(end);
+        decimal startDeciaml = Decimal.Parse(start);
+        scheduaiTask.EndTime = endDeciaml;
+        scheduaiTask.StartTime = startDeciaml;
+        _context.ScheduaiTasks.Add(scheduaiTask);
+        await _context.SaveChangesAsync();
 
         return scheduaiTask;
     }
@@ -83,12 +103,10 @@ public class ScheduaiTaskService(ScheduaiDbContext context)
     public async Task<ICollection<ScheduaiTask>> GetScheduaiTasksByUserIdAsync(string userId)
     {
         return await _context
-            .ScheduaiTasks
-            .Where(
-                st =>
-                    st.UserId == userId
-                    && st.StartTime.HasValue
-                    && st.CreateDate.Date == DateTime.UtcNow.Date
+            .ScheduaiTasks.Where(st =>
+                st.UserId == userId
+                && st.StartTime.HasValue
+                && st.CreateDate.Date == DateTime.UtcNow.Date
             )
             .ToListAsync();
     }
