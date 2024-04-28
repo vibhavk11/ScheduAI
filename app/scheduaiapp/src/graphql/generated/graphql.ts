@@ -14,13 +14,13 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
-  /** The `DateTime` scalar represents an ISO-8601 compliant date time type. */
-  DateTime: { input: any; output: any; }
+  /** The built-in `Decimal` scalar type. */
+  Decimal: { input: any; output: any; }
 };
 
 export type CreateScheduaiTaskInput = {
   description: Scalars['String']['input'];
-  dueDate: Scalars['DateTime']['input'];
+  dueTime: Scalars['Decimal']['input'];
   estimatedTimeInHours: Scalars['Int']['input'];
   priority: Priority;
   title: Scalars['String']['input'];
@@ -70,8 +70,14 @@ export enum Priority {
 export type Query = {
   __typename?: 'Query';
   priorities: Array<KeyValuePairOfPriorityAndInt32>;
+  scheduaiTasksById: Array<ScheduaiTask>;
   test: Scalars['String']['output'];
   userById: User;
+};
+
+
+export type QueryScheduaiTasksByIdArgs = {
+  id: Scalars['String']['input'];
 };
 
 
@@ -83,13 +89,13 @@ export type ScheduaiTask = {
   __typename?: 'ScheduaiTask';
   aiRecommendation?: Maybe<Scalars['String']['output']>;
   description: Scalars['String']['output'];
-  dueDate?: Maybe<Scalars['DateTime']['output']>;
-  endDate?: Maybe<Scalars['DateTime']['output']>;
+  dueTime?: Maybe<Scalars['Decimal']['output']>;
+  endTime?: Maybe<Scalars['Decimal']['output']>;
   estimatedTimeInHours: Scalars['Int']['output'];
   id: Scalars['Int']['output'];
   isComplete: Scalars['Boolean']['output'];
   priority: Priority;
-  startDate?: Maybe<Scalars['DateTime']['output']>;
+  startTime?: Maybe<Scalars['Decimal']['output']>;
   title: Scalars['String']['output'];
   user: User;
   userId: Scalars['String']['output'];
@@ -122,7 +128,14 @@ export type CreateScheduaiTaskMutationVariables = Exact<{
 }>;
 
 
-export type CreateScheduaiTaskMutation = { __typename?: 'Mutation', createScheduaiTask: { __typename?: 'CreateScheduaiTaskPayload', scheduaiTask?: { __typename?: 'ScheduaiTask', id: number, title: string, description: string, dueDate?: any | null, priority: Priority } | null } };
+export type CreateScheduaiTaskMutation = { __typename?: 'Mutation', createScheduaiTask: { __typename?: 'CreateScheduaiTaskPayload', scheduaiTask?: { __typename?: 'ScheduaiTask', id: number, title: string, description: string, dueTime?: any | null, priority: Priority } | null } };
+
+export type ScheduaiTasksByIdQueryVariables = Exact<{
+  input: Scalars['String']['input'];
+}>;
+
+
+export type ScheduaiTasksByIdQuery = { __typename?: 'Query', scheduaiTasksById: Array<{ __typename?: 'ScheduaiTask', id: number, title: string, description: string, priority: Priority, dueTime?: any | null, startTime?: any | null, endTime?: any | null }> };
 
 export type TestQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -138,6 +151,7 @@ export type GetUserByIdQuery = { __typename?: 'Query', userById: { __typename?: 
 
 
 export const GetPrioritiesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetPriorities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"priorities"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"key"}},{"kind":"Field","name":{"kind":"Name","value":"value"}}]}}]}}]} as unknown as DocumentNode<GetPrioritiesQuery, GetPrioritiesQueryVariables>;
-export const CreateScheduaiTaskDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateScheduaiTask"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateScheduaiTaskInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createScheduaiTask"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduaiTask"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dueDate"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]}}]}}]} as unknown as DocumentNode<CreateScheduaiTaskMutation, CreateScheduaiTaskMutationVariables>;
+export const CreateScheduaiTaskDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"CreateScheduaiTask"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateScheduaiTaskInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"createScheduaiTask"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduaiTask"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"dueTime"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}}]}}]}}]}}]} as unknown as DocumentNode<CreateScheduaiTaskMutation, CreateScheduaiTaskMutationVariables>;
+export const ScheduaiTasksByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ScheduaiTasksById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"scheduaiTasksById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"priority"}},{"kind":"Field","name":{"kind":"Name","value":"dueTime"}},{"kind":"Field","name":{"kind":"Name","value":"startTime"}},{"kind":"Field","name":{"kind":"Name","value":"endTime"}}]}}]}}]} as unknown as DocumentNode<ScheduaiTasksByIdQuery, ScheduaiTasksByIdQueryVariables>;
 export const TestQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"TestQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"test"}}]}}]} as unknown as DocumentNode<TestQueryQuery, TestQueryQueryVariables>;
 export const GetUserByIdDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"GetUserById"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"input"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"CreateUserInput"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userById"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"input"},"value":{"kind":"Variable","name":{"kind":"Name","value":"input"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"username"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}}]}}]} as unknown as DocumentNode<GetUserByIdQuery, GetUserByIdQueryVariables>;

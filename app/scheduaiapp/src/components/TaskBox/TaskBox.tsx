@@ -1,5 +1,8 @@
+import { useQuery } from '@apollo/client'
+import { useAuth0 } from '@auth0/auth0-react'
 import { Box, Grid, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { ScheduaiTasksByIdDocument } from '../../graphql/generated/graphql'
 
 interface TaskBoxProps {
   width?: number | string
@@ -13,6 +16,20 @@ const TaskBox: React.FC<TaskBoxProps> = ({
   date,
 }) => {
   const [percentOfDay, setPercentOfDay] = useState(0)
+
+  const { user } = useAuth0()
+
+  const { data } = useQuery(ScheduaiTasksByIdDocument, {
+    variables: {
+      input: user?.sub ?? '',
+    },
+    fetchPolicy: 'network-only',
+  })
+
+  useEffect(() => {
+    console.log('DATA', data)
+  }, [data])
+
   // check if date is today
   useEffect(() => {
     const today = new Date()
@@ -21,7 +38,6 @@ const TaskBox: React.FC<TaskBoxProps> = ({
       date.getMonth() === today.getMonth() &&
       date.getFullYear() === today.getFullYear()
     ) {
-      console.log('Today')
       setPercentOfDay(
         ((date.getHours() * 60 + date.getMinutes()) / (24 * 60)) * 100,
       )

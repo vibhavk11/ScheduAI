@@ -1,0 +1,11 @@
+query ScheduaiTasksById($input: String!) {
+  scheduaiTasksById(id: $input) {
+    id
+    title
+    description
+    priority
+    dueTime
+    startTime
+    endTime
+  }
+}

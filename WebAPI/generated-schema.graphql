@@ -20,6 +20,7 @@ type Mutation {
 type Query {
   userById(input: CreateUserInput!): User!
   test: String!
+  scheduaiTasksById(id: String!): [ScheduaiTask!]!
   priorities: [KeyValuePairOfPriorityAndInt32!]!
 }
 
@@ -29,9 +30,9 @@ type ScheduaiTask {
   title: String!
   description: String!
   isComplete: Boolean!
-  startDate: DateTime
-  endDate: DateTime
-  dueDate: DateTime
+  startTime: Decimal
+  endTime: Decimal
+  dueTime: Decimal
   priority: Priority!
   estimatedTimeInHours: Int!
   aiRecommendation: String
@@ -55,7 +56,7 @@ input CreateScheduaiTaskInput {
   description: String!
   estimatedTimeInHours: Int!
   priority: Priority!
-  dueDate: DateTime!
+  dueTime: Decimal!
 }
 
 input CreateUserInput {
@@ -75,5 +76,5 @@ enum Priority {
   URGENT
 }
 
-"The `DateTime` scalar represents an ISO-8601 compliant date time type."
-scalar DateTime @specifiedBy(url: "https:\/\/www.graphql-scalars.com\/date-time")
+"The built-in `Decimal` scalar type."
+scalar Decimal
