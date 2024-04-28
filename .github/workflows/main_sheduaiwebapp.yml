@@ -30,8 +30,8 @@ jobs:
 
       - name: Zip artifact for deployment
         run: |
-          zip -r release.zip app/scheduaiapp/dist
-        working-directory: ${{ github.workspace }}
+          zip -r release.zip dist
+        working-directory: app/scheduaiapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -44,18 +44,12 @@ jobs:
     needs: build
     environment:
       name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-    permissions:
-      id-token: write # Required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
           name: node-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
 
       - name: Login to Azure
         uses: azure/login@v1
@@ -70,4 +64,4 @@ jobs:
         with:
           app-name: 'SheduaiWebApp'
           slot-name: 'Production'
-          package: .
+          package: app/scheduaiapp/release.zip
