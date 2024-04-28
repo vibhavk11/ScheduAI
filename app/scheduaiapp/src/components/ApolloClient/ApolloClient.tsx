@@ -26,7 +26,8 @@ const ApolloClientComponent = ({ children }: ApolloClientComponentProps) => {
 
   const link = from([
     errorLink,
-    new HttpLink({ uri: 'http://localhost:5062/graphql' }),
+    // new HttpLink({ uri: 'http://localhost:5062/graphql' }),
+    new HttpLink({ uri: 'https://scheduaiwebapi.azurewebsites.net/graphql' }),
   ])
 
   const client = new ApolloClient({

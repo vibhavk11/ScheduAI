@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["apolloclient"]
+  "cSpell.words": ["apolloclient"],
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"]
 }
