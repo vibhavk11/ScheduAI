@@ -43,13 +43,12 @@ builder
     .AddCors(options =>
     {
         options.AddPolicy(
-            "AllowSpecificOrigin",
+            "AllowAll",
             builder =>
                 builder
-                    .WithOrigins("http://localhost:5173") // Allow your frontend URL
+                    .AllowAnyOrigin() // Allow your frontend URL
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials()
         );
     });
 
@@ -76,7 +75,7 @@ var summaries = new[]
     "Scorching"
 };
 
-app.UseCors("AllowSpecificOrigin"); // Apply the CORS policy globally
+app.UseCors("AllowAll"); // Apply the CORS policy globally
 app.UseAuthentication();
 app.UseAuthorization();
 
